@@ -778,7 +778,10 @@ public class FurnitureTable extends JTable implements View, Printable {
             TableCellRenderer cellRenderer = tableColumn.getCellRenderer();
             Component rendererComponent = cellRenderer.getTableCellRendererComponent(table, value, 
                 isSelected, hasFocus, row, column);
-            if (rendererComponent instanceof JCheckBox) {
+            if (tableColumn.getIdentifier() == HomePieceOfFurniture.SortableProperty.NAME) {
+              rendererComponent = defaultRenderer.getTableCellRendererComponent(table,
+                  value != null ? ((HomePieceOfFurniture)value).getName() : "", false, false, row, column);
+            } else if (rendererComponent instanceof JCheckBox) {
               // Prefer a x sign for boolean values instead of check boxes
               rendererComponent = defaultRenderer.getTableCellRendererComponent(table, 
                   ((JCheckBox)rendererComponent).isSelected() ? "x" : "", false, false, row, column);
